@@ -1,0 +1,1012 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Fatafat Sewa API",
+        "version": "1.0.0",
+        "description": "API documentation for the Fatafat Sewa e-commerce application."
+    },
+    "servers": [
+        {
+            "url": "https://fatafatsewa.com/api/v1",
+            "description": "Production Server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/products/{slug}": {
+            "get": {
+                "summary": "Get Product Details",
+                "description": "Fetches detailed information about a single product.",
+                "tags": [
+                    "Products"
+                ],
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Product slug"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "message": "Success",
+                                    "data": {
+                                        "id": 4785,
+                                        "name": "OnePlus 15 (16GBRAM + 512GB Storage)",
+                                        "slug": "oneplus-15-price-in-nepal",
+                                        "sku": "oneplus-15",
+                                        "short_description": "Flagship killer with Snapdragon 8 Elite and 165Hz Display.",
+                                        "description": "<p>The OnePlus 15 sets a new benchmark...</p>",
+                                        "original_price": 169999,
+                                        "discounted_price": 159999,
+                                        "quantity": 10,
+                                        "unit": "Unit",
+                                        "weight": "210g",
+                                        "status": true,
+                                        "is_featured": false,
+                                        "attributes": {
+                                            "attribute_class_id": 1,
+                                            "product_attributes": {
+                                                "NETWORK Technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
+                                                "RAM": "16 GB",
+                                                "STORAGE": "512 GB",
+                                                "Price in Nepal": "159999"
+                                            }
+                                        },
+                                        "variant_attributes": {
+                                            "Color": [
+                                                "Gold",
+                                                "Black",
+                                                "Voilet"
+                                            ]
+                                        },
+                                        "highlights": "Snapdragon 8 Elite Processor | ...",
+                                        "product_video_url": null,
+                                        "emi_enabled": true,
+                                        "pre_order": false,
+                                        "pre_order_price": 0,
+                                        "warranty_description": "1 Year Official Warranty",
+                                        "average_rating": 4.5,
+                                        "image": {
+                                            "full": "https://fatafatsewa.com/.../OnePlus-15.jpg",
+                                            "thumb": "https://fatafatsewa.com/.../OnePlus-15-thumbnail.webp",
+                                            "preview": "https://fatafatsewa.com/.../OnePlus-15-preview.webp"
+                                        },
+                                        "brand": "OnePlus",
+                                        "vendor": "Fatafat Sewa",
+                                        "categories": [
+                                            {
+                                                "id": 1,
+                                                "name": "Smartphones",
+                                                "slug": "smartphones"
+                                            }
+                                        ],
+                                        "variants": [
+                                            {
+                                                "id": 915,
+                                                "product_id": 4785,
+                                                "sku": "OP15-GOLD",
+                                                "price": 159999,
+                                                "original_price": 169999,
+                                                "discounted_price": 159999,
+                                                "quantity": 5,
+                                                "attributes": {
+                                                    "Color": "Gold"
+                                                },
+                                                "status": true,
+                                                "image": {
+                                                    "full": "...",
+                                                    "thumb": "...",
+                                                    "preview": null
+                                                }
+                                            }
+                                        ],
+                                        "related_products": [
+                                            {
+                                                "id": 4786,
+                                                "name": "catagory name",
+                                                "slug": "catagory-slug",
+                                            }
+                                        ],
+                                        "reviews": [],
+                                        "created_at": "2026-01-26T14:05:16.000000Z",
+                                        "updated_at": "2026-01-26T14:12:27.000000Z"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/search": {
+            "get": {
+                "summary": "Search Products",
+                "tags": [
+                    "Products"
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Search keyword"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Product 1",
+                                            "description": "Description 1",
+                                            "price": 100,
+                                            "image": "https://example.com/product1.jpg",
+                                            "slug": "product-1",
+                                            "emi": true,
+                                            "is_new": true,
+                                            "highlights": "sv",
+                                            "wishlisted": true
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/category/{slug}": {
+            "get": {
+                "summary": "Get Products by Category Slug",
+                "tags": [
+                    "Categories"
+                ],
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price_min",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "price_max",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "emi",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category Products",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "category": {
+                                        "id": 1,
+                                        "name": "Category 1",
+                                        "slug": "category-1"
+                                    },
+                                    "data": [
+                                        {
+                                            "id": 2,
+                                            "name": "Product 2",
+                                            "description": "Description 2",
+                                            "price": 200,
+                                            "image": "https://example.com/product2.jpg",
+                                            "slug": "product-2",
+                                            "emi": true,
+                                            "is_new": true,
+                                            "brand": "Brand 2",
+                                            "highlights": "sv",
+                                            "wishlisted": true
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "category/navbarItemds": {
+            "get": {
+                "summary": "Get All NavbarItems",
+                "tags": [
+                    "NavbarItems"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of navbaritems",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": "1",
+                                            "name": "Laptops By Brands",
+                                            "slug": "/laptops-by-brands",
+                                            "children": [
+                                                {
+                                                    "id": "1-1",
+                                                    "name": "Dell",
+                                                    "slug": "/laptops-by-brands/dell",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-1-1",
+                                                            "name": "Inspiron Series",
+                                                            "slug": "laptop-price-in-nepal?id=104",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-2",
+                                                            "name": "Vostro Series",
+                                                            "slug": "laptop-price-in-nepal&id=105",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-3",
+                                                            "name": "Gaming Series",
+                                                            "slug": "laptop-price-in-nepal",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-4",
+                                                            "name": "Latitude Series",
+                                                            "slug": "/laptops-by-brands/dell/latitude-series",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-5",
+                                                            "name": "2-in-1",
+                                                            "slug": "/laptops-by-brands/dell/2-in-1",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-6",
+                                                            "name": "XPS",
+                                                            "slug": "/laptops-by-brands/dell/xps",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-1-7",
+                                                            "name": "Alienware",
+                                                            "slug": "/laptops-by-brands/dell/alienware",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-2",
+                                                    "name": "Asus",
+                                                    "slug": "/laptops-by-brands/asus",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-2-1",
+                                                            "name": "Zenbook Series",
+                                                            "slug": "/laptops-by-brands/asus/zenbook",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-2-2",
+                                                            "name": "ROG Series",
+                                                            "slug": "/laptops-by-brands/asus/rog",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-2-3",
+                                                            "name": "TUF Gaming Series",
+                                                            "slug": "/laptops-by-brands/asus/tuf-gaming",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-2-4",
+                                                            "name": "Vivobook Series",
+                                                            "slug": "/laptops-by-brands/asus/vivobook",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-2-5",
+                                                            "name": "Zephyrus",
+                                                            "slug": "/laptops-by-brands/asus/zephyrus",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-2-6",
+                                                            "name": "Asus Gaming Series",
+                                                            "slug": "/laptops-by-brands/asus/gaming",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-3",
+                                                    "name": "Acer",
+                                                    "slug": "/laptops-by-brands/acer",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-3-1",
+                                                            "name": "Nitro Series",
+                                                            "slug": "/laptops-by-brands/acer/nitro",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-2",
+                                                            "name": "Helios Series",
+                                                            "slug": "/laptops-by-brands/acer/helios",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-3",
+                                                            "name": "Aspire Series",
+                                                            "slug": "/laptops-by-brands/acer/aspire",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-4",
+                                                            "name": "Swift Series",
+                                                            "slug": "/laptops-by-brands/acer/swift",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-5",
+                                                            "name": "Triton Series",
+                                                            "slug": "/laptops-by-brands/acer/triton",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-6",
+                                                            "name": "Spin Series",
+                                                            "slug": "/laptops-by-brands/acer/spin",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-7",
+                                                            "name": "Extensa Series",
+                                                            "slug": "/laptops-by-brands/acer/extensa",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-3-8",
+                                                            "name": "Travelmate Series",
+                                                            "slug": "/laptops-by-brands/acer/travelmate",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-4",
+                                                    "name": "Apple",
+                                                    "slug": "/laptops-by-brands/apple",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-4-1",
+                                                            "name": "Macbook Pro",
+                                                            "slug": "/laptops-by-brands/apple/macbook-pro",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-4-2",
+                                                            "name": "Macbook Air",
+                                                            "slug": "/laptops-by-brands/apple/macbook-air",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-4-3",
+                                                            "name": "iPad",
+                                                            "slug": "/laptops-by-brands/apple/ipad",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-4-4",
+                                                            "name": "iMac",
+                                                            "slug": "/laptops-by-brands/apple/imac",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-4-5",
+                                                            "name": "Mac Mini",
+                                                            "slug": "/laptops-by-brands/apple/mac-mini",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-4-6",
+                                                            "name": "Airpods",
+                                                            "slug": "/laptops-by-brands/apple/airpods",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-5",
+                                                    "name": "HP",
+                                                    "slug": "/laptops-by-brands/hp",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-5-1",
+                                                            "name": "Pavilion Series",
+                                                            "slug": "/laptops-by-brands/hp/pavilion",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-2",
+                                                            "name": "Victus Series",
+                                                            "slug": "/laptops-by-brands/hp/victus",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-3",
+                                                            "name": "Omen Series",
+                                                            "slug": "/laptops-by-brands/hp/omen",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-4",
+                                                            "name": "Spectre Series",
+                                                            "slug": "/laptops-by-brands/hp/spectre",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-5",
+                                                            "name": "Envy Series",
+                                                            "slug": "/laptops-by-brands/hp/envy",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-6",
+                                                            "name": "Notebook Series",
+                                                            "slug": "/laptops-by-brands/hp/notebook",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-5-7",
+                                                            "name": "OmniBook Series",
+                                                            "slug": "/laptops-by-brands/hp/omnibook",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-6",
+                                                    "name": "Lenovo",
+                                                    "slug": "/laptops-by-brands/lenovo",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-6-1",
+                                                            "name": "ThinkPad",
+                                                            "slug": "/laptops-by-brands/lenovo/thinkpad",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-6-2",
+                                                            "name": "IdeaPad",
+                                                            "slug": "/laptops-by-brands/lenovo/ideapad",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-6-3",
+                                                            "name": "Flex",
+                                                            "slug": "/laptops-by-brands/lenovo/flex",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-6-4",
+                                                            "name": "Legion",
+                                                            "slug": "/laptops-by-brands/lenovo/legion",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-6-5",
+                                                            "name": "Yoga",
+                                                            "slug": "/laptops-by-brands/lenovo/yoga",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-6-6",
+                                                            "name": "ThinkBook",
+                                                            "slug": "/laptops-by-brands/lenovo/thinkbook",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "1-7",
+                                                    "name": "MSI",
+                                                    "slug": "/laptops-by-brands/msi",
+                                                    "children": [
+                                                        {
+                                                            "id": "1-7-1",
+                                                            "name": "Crosshair / Pulse GL Series",
+                                                            "slug": "/laptops-by-brands/msi/crosshair-pulse-gl",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-2",
+                                                            "name": "Cyborg / Thin GF Series",
+                                                            "slug": "/laptops-by-brands/msi/cyborg-thin-gf",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-3",
+                                                            "name": "Vector / Leopard GP Series",
+                                                            "slug": "/laptops-by-brands/msi/vector-leopard-gp",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-4",
+                                                            "name": "Titan GT Series",
+                                                            "slug": "/laptops-by-brands/msi/titan-gt",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-5",
+                                                            "name": "Stealth Series",
+                                                            "slug": "/laptops-by-brands/msi/stealth",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-6",
+                                                            "name": "Delta Series",
+                                                            "slug": "/laptops-by-brands/msi/delta",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "1-7-7",
+                                                            "name": "Prestige Series",
+                                                            "slug": "/laptops-by-brands/msi/prestige",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "2",
+                                            "name": "Accessories",
+                                            "slug": "/accessories",
+                                            "children": [
+                                                {
+                                                    "id": "2-1",
+                                                    "name": "Computer Accessories",
+                                                    "slug": "/accessories/computer",
+                                                    "children": [
+                                                        {
+                                                            "id": "2-1-1",
+                                                            "name": "Mouse Pad",
+                                                            "slug": "/accessories/computer/mouse-pad",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-2",
+                                                            "name": "Combo Set",
+                                                            "slug": "/accessories/computer/combo-set",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-3",
+                                                            "name": "Webcam",
+                                                            "slug": "/accessories/computer/webcam",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-4",
+                                                            "name": "Joystick",
+                                                            "slug": "/accessories/computer/joystick",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-5",
+                                                            "name": "USB Dongles",
+                                                            "slug": "/accessories/computer/usb-dongles",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-6",
+                                                            "name": "Card Readers",
+                                                            "slug": "/accessories/computer/card-readers",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-7",
+                                                            "name": "Keyboard",
+                                                            "slug": "/accessories/computer/keyboard",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-1-8",
+                                                            "name": "Mouse",
+                                                            "slug": "/accessories/computer/mouse",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "2-2",
+                                                    "name": "Storage Device",
+                                                    "slug": "/accessories/storage",
+                                                    "children": [
+                                                        {
+                                                            "id": "2-2-1",
+                                                            "name": "HDD",
+                                                            "slug": "/accessories/storage/hdd",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-2-2",
+                                                            "name": "External SSD",
+                                                            "slug": "/accessories/storage/external-ssd",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-2-3",
+                                                            "name": "Laptop RAM",
+                                                            "slug": "/accessories/storage/laptop-ram",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "2-2-4",
+                                                            "name": "External HDD",
+                                                            "slug": "/accessories/storage/external-hdd",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "3",
+                                            "name": "Office Components",
+                                            "slug": "/office-components",
+                                            "children": [
+                                                {
+                                                    "id": "3-1",
+                                                    "name": "PC Components",
+                                                    "slug": "/office-components/pc-components",
+                                                    "children": [
+                                                        {
+                                                            "id": "3-1-1",
+                                                            "name": "CPU/Processor",
+                                                            "slug": "/office-components/pc-components/cpu-processor",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "3-1-2",
+                                                            "name": "Motherboards",
+                                                            "slug": "/office-components/pc-components/motherboards",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "3-1-3",
+                                                            "name": "Graphics Card",
+                                                            "slug": "/office-components/pc-components/graphics-card",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "3-2",
+                                                    "name": "Monitors",
+                                                    "slug": "/office-components/monitors",
+                                                    "children": [
+                                                        {
+                                                            "id": "3-2-1",
+                                                            "name": "Gaming Monitors",
+                                                            "slug": "/office-components/monitors/gaming",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "id": "3-2-2",
+                                                            "name": "Curved Monitors",
+                                                            "slug": "/office-components/monitors/curved",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/brands": {
+            "get": {
+                "summary": "Get All Brands",
+                "tags": [
+                    "Brands"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of brands",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Samsung",
+                                            "slug": "samsung",
+                                            "logo": "..."
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/brand/{slug}": {
+            "get": {
+                "summary": "Get Brand Details",
+                "tags": [
+                    "Brands"
+                ],
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brand details",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "name": "Samsung",
+                                        "description": "..."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/emi/apply/credit-card": {
+            "post": {
+                "summary": "Apply for Credit Card EMI",
+                "tags": [
+                    "EMI"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "product_id": 4785,
+                                "variant_id": 915,
+                                "product_price": 159999,
+                                "bank_id": 5,
+                                "emi_tenure_months": 12,
+                                "down_payment_percent": 0,
+                                "down_payment_amount": 0,
+                                "finance_amount": 159999,
+                                "user_details": {
+                                    "name": "Aarav Sharma",
+                                    "phone": "9801234567",
+                                    "email": "aarav@example.com",
+                                    "address": "Lazimpat, Kathmandu"
+                                },
+                                "card_details": {
+                                    "card_holder_name": "Aarav Sharma",
+                                    "credit_card_number": "XXXX-XXXX-XXXX-1234",
+                                    "expiry_date": "12/28",
+                                    "bank_name": "Nabil Bank"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Application Submitted"
+                    }
+                }
+            }
+        },
+        "/emi/apply/citizenship": {
+            "post": {
+                "summary": "Apply for Citizenship EMI",
+                "tags": [
+                    "EMI"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "product_id": 4785,
+                                "variant_id": 915,
+                                "product_price": 159999,
+                                "emi_tenure_months": 12,
+                                "down_payment_percent": 40,
+                                "down_payment_amount": 63999.6,
+                                "finance_amount": 95999.4,
+                                "user_details": {
+                                    "name": "Sita Verma",
+                                    "phone": "9841555666",
+                                    "email": "sita@example.com",
+                                    "address": "Baneshwore, Kathmandu",
+                                    "citizenship_no": "27-01-78-12345",
+                                    "citizenship_issue_district": "Kathmandu",
+                                    "citizenship_issue_date": "2078-01-15"
+                                },
+                                "guarantor_details": {
+                                    "name": "Ram Verma",
+                                    "phone": "9851011222",
+                                    "relation": "Father"
+                                },
+                                "documents": {
+                                    "photo": "base64_image_string",
+                                    "citizenship_front": "base64_image_string",
+                                    "citizenship_back": "base64_image_string",
+                                    "guarantor_citizenship": "base64_image_string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Application Submitted"
+                    }
+                }
+            }
+        },
+        "/emi/card/request": {
+            "post": {
+                "summary": "Request EMI Card",
+                "tags": [
+                    "EMI"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "personal_details": {
+                                    "name": "Aarav Sharma",
+                                    "email": "aarav.sharma@example.com",
+                                    "phone": "9801234567",
+                                    "occupation": "Software Engineer",
+                                    "gender": "Male",
+                                    "dob": "1995-05-15",
+                                    "address": "Lazimpat, Kathmandu",
+                                    "national_id": 12345678,
+                                    "marriage_status": "Single",
+                                    "partner_name": ""
+                                },
+                                "documents": {
+                                    "citizenship_front": "base64_string",
+                                    "citizenship_back": "base64_string",
+                                    "passport_photo": "base64_string",
+                                    "bank_statement": "base64_string",
+                                    "user_signature": "base64_string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Request Submitted"
+                    }
+                }
+            }
+        },
+        "/user/addresses": {
+            "get": {
+                "summary": "Get Addresses   or shipping addresses",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of addresses",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Address 1",
+                                            "address": "Address 1",
+                                            "city": "City 1",
+                                            "state": "State 1",
+                                            "zip": "12345",
+                                            "country": "Country 1",
+                                            "latitude": "12345",
+                                            "longitude": "12345",
+                                            "phone": "1234567890"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
