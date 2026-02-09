@@ -678,7 +678,7 @@
                 }
             }
         },
-        "/category/{slug}": {
+        "/categorys/{slug}": {
             "get": {
                 "summary": "Get Products by Category Slug",
                 "tags": [
@@ -776,7 +776,7 @@
                 }
             }
         },
-        "category/navbarItemds": {
+        "categorys/navbarItems": {
             "get": {
                 "summary": "Get All NavbarItems",
                 "tags": [
