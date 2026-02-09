@@ -5,6 +5,7 @@ This directory contains the "Real" API documentation for Fatafat Sewa, generated
 ## Contents
 - `openapi.json`: The OpenAPI (Swagger) Specification file describing all endpoints.
 - `index.html`: A standalone HTML viewer using [Redoc](https://github.com/Redocly/redoc) to render the documentation beautifully.
+- `Checkout_Documentation.md`: Detailed guide for the Checkout API payload and response structure.
 
 ## How to View
 To view the documentation, you can simply serve this directory.

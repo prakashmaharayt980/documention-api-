@@ -1,0 +1,93 @@
+{
+    "gps_mode_example": {
+        "description": "Address created using GPS/Map selection mode",
+        "data": {
+            "label": "Home",
+            "full_address": "Thamel, Kathmandu 44600, Nepal",
+            "address": "Thamel, Kathmandu 44600, Nepal",
+            "province": "Bagmati",
+            "district": "Kathmandu",
+            "city": "Kathmandu",
+            "ward": 1,
+            "tole": "Thamel",
+            "house_no": "",
+            "landmark": "Near Garden of Dreams",
+            "lat": 27.7172,
+            "lng": 85.3240,
+            "country": "Nepal",
+            "postal_code": "44600",
+            "state": "Bagmati",
+            "is_default": true
+        },
+        "notes": [
+            "lat and lng are REQUIRED in GPS mode",
+            "full_address is auto-generated from map selection",
+            "Detailed fields (province, district, city, ward, tole) can be auto-filled from map data or left minimal",
+            "house_no and landmark are optional"
+        ]
+    },
+    "manual_mode_example": {
+        "description": "Address created using manual entry mode",
+        "data": {
+            "label": "Office",
+            "full_address": "Chandol-5, Kathmandu, Bagmati",
+            "address": "Chandol-5, Kathmandu, Bagmati",
+            "province": "Bagmati",
+            "district": "Kathmandu",
+            "city": "Kathmandu",
+            "ward": 5,
+            "tole": "Chandol",
+            "house_no": "Block A-12",
+            "landmark": "Opposite City Mall",
+            "lat": null,
+            "lng": null,
+            "country": "Nepal",
+            "postal_code": "00000",
+            "state": "Bagmati",
+            "is_default": false
+        },
+        "notes": [
+            "lat and lng are NULL or omitted in manual mode",
+            "Province, district, city, ward, and tole are REQUIRED",
+            "full_address is constructed from detailed fields: {tole}-{ward}, {city}, {district}",
+            "house_no and landmark are optional but recommended"
+        ]
+    },
+    "field_differences": {
+        "gps_mode": {
+            "required_fields": [
+                "label",
+                "full_address",
+                "lat",
+                "lng"
+            ],
+            "optional_fields": [
+                "province",
+                "district",
+                "city",
+                "ward",
+                "tole",
+                "house_no",
+                "landmark",
+                "country"
+            ],
+            "coordinates": "MUST be present (lat/lng from map)"
+        },
+        "manual_mode": {
+            "required_fields": [
+                "label",
+                "province",
+                "district",
+                "city",
+                "ward",
+                "tole"
+            ],
+            "optional_fields": [
+                "house_no",
+                "landmark",
+                "country"
+            ],
+            "coordinates": "NULL or omitted (no lat/lng)"
+        }
+    }
+}
