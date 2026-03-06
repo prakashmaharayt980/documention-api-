@@ -16,7 +16,7 @@
 <script>
     window.onload = () => {
         window.ui = SwaggerUIBundle({
-            url: './openapi.json',
+            url: './openapi.json?t=' + new Date().getTime(),
             dom_id: '#swagger-ui',
         });
     };
