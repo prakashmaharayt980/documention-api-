@@ -775,7 +775,7 @@
         "/product-detail/{slug}": {
             "get": {
                 "summary": "Get Product Details",
-                "description": "Fetches detailed information about a single product including its variants, reviews, and related products.",
+                "description": "Fetches detailed information about a single product.\n\n🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">ADDED / TO IMPLEMENT</span>\n- **Variant ID** (New field in variants)\n- **Coupons** & **Free Gifts**\n- **Related Categories**",
                 "tags": [
                     "Products"
                 ],
@@ -822,80 +822,73 @@
                                                     "type": "string",
                                                     "nullable": true
                                                 },
-                                                "short_description": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
                                                 "description": {
-                                                    "type": "string"
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "short_description": {
+                                                            "type": "string",
+                                                            "nullable": true
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "highlights": {
+                                                            "type": "string"
+                                                        },
+                                                        "warranty_description": {
+                                                            "type": "string",
+                                                            "nullable": true
+                                                        }
+                                                    }
                                                 },
                                                 "price": {
-                                                    "type": "number"
-                                                },
-                                                "original_price": {
-                                                    "type": "number",
-                                                    "nullable": true
-                                                },
-                                                "discounted_price": {
-                                                    "type": "number"
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "original_price": {
+                                                            "type": "number",
+                                                            "nullable": true
+                                                        },
+                                                        "current": {
+                                                            "type": "number"
+                                                        }
+                                                    }
                                                 },
                                                 "quantity": {
                                                     "type": "integer"
                                                 },
-                                                "unit": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "weight": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
                                                 "status": {
-                                                    "type": "integer"
-                                                },
-                                                "is_featured": {
-                                                    "type": "integer"
+                                                    "type": "boolean"
                                                 },
                                                 "attributes": {
                                                     "type": "object"
                                                 },
-                                                "variant_attributes": {
-                                                    "type": "object"
-                                                },
-                                                "highlights": {
-                                                    "type": "string"
-                                                },
-                                                "product_video_url": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
                                                 "emi_enabled": {
-                                                    "type": "integer"
+                                                    "type": "boolean"
                                                 },
                                                 "pre_order": {
-                                                    "type": "integer"
-                                                },
-                                                "pre_order_price": {
-                                                    "type": "number"
-                                                },
-                                                "warranty_description": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "average_rating": {
-                                                    "type": "number"
-                                                },
-                                                "rating_count": {
-                                                    "type": "integer"
-                                                },
-                                                "colors": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string"
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "available": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "price": {
+                                                            "type": "number",
+                                                            "nullable": true
+                                                        }
                                                     }
                                                 },
-                                                "image": {
-                                                    "type": "object"
+                                                "thumb": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "url": {
+                                                            "type": "string",
+                                                            "nullable": true
+                                                        },
+                                                        "alt_text": {
+                                                            "type": "string",
+                                                            "nullable": true
+                                                        }
+                                                    }
                                                 },
                                                 "images": {
                                                     "type": "array",
@@ -906,10 +899,13 @@
                                                 "brand": {
                                                     "type": "object"
                                                 },
-                                                "vendor": {
-                                                    "type": "object"
-                                                },
                                                 "categories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "related_categories": {
                                                     "type": "array",
                                                     "items": {
                                                         "type": "object"
@@ -918,25 +914,59 @@
                                                 "variants": {
                                                     "type": "array",
                                                     "items": {
-                                                        "type": "object"
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "variant_id": {
+                                                                "type": "integer",
+                                                                "description": "🔴 Unique ID for the variant"
+                                                            },
+                                                            "price": {
+                                                                "type": "number"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer"
+                                                            },
+                                                            "attributes": {
+                                                                "type": "object"
+                                                            },
+                                                            "images": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "object"
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 },
-                                                "reviews": {
-                                                    "type": "object"
-                                                },
-                                                "related_products": {
+                                                "coupons": {
                                                     "type": "array",
                                                     "items": {
-                                                        "type": "object"
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "discount_amount": {
+                                                                "type": "number"
+                                                            },
+                                                            "description": {
+                                                                "type": "string"
+                                                            }
+                                                        }
                                                     }
                                                 },
-                                                "created_at": {
-                                                    "type": "string",
-                                                    "format": "date-time"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string",
-                                                    "format": "date-time"
+                                                "free_gift": {
+                                                    "type": "object",
+                                                    "nullable": true,
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "image_url": {
+                                                            "type": "string",
+                                                            "nullable": true
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -946,105 +976,81 @@
                                     "success": true,
                                     "message": "Success",
                                     "data": {
-                                        "id": 4785,
-                                        "name": "OnePlus 15 (16GBRAM + 512GB Storage)",
-                                        "slug": "oneplus-15-price-in-nepal",
-                                        "sku": "oneplus-15",
-                                        "short_description": "Flagship killer with Snapdragon 8 Elite and 165Hz Display.",
-                                        "description": "<p>The OnePlus 15 sets a new benchmark in mobile technology...</p>",
-                                        "price": 159999,
-                                        "original_price": 169999,
-                                        "discounted_price": 159999,
+                                        "id": 4781,
+                                        "name": "Redmi Note 15 5G (12+256gb)",
+                                        "slug": "redmi-note-15-5g-12256gb",
+                                        "sku": "redmi-note-15-12gb+256gb",
+                                        "description": {
+                                            "short_description": "Redmi Note 15 5G Price in Nepal (2026) | 108MP Camera, AMOLED | 0% EMI",
+                                            "description": "<h3>Price in Nepal</h3>...",
+                                            "highlights": "6.83\" 3D Curved AMOLED | Snapdragon 6 Gen 3 | 108MP OIS",
+                                            "warranty_description": null
+                                        },
+                                        "price": {
+                                            "original_price": null,
+                                            "current": 46999
+                                        },
                                         "quantity": 10,
-                                        "unit": "Unit",
-                                        "weight": "210g",
-                                        "status": 1,
-                                        "is_featured": 1,
+                                        "status": true,
                                         "attributes": {
-                                            "attribute_class_id": 1,
-                                            "product_attributes": {
-                                                "NETWORK Technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
-                                                "RAM": "16 GB",
-                                                "STORAGE": "512 GB"
-                                            }
+                                            "Display": "6.83-inch 3D Curved AMOLED",
+                                            "Chipset": "Qualcomm Snapdragon 6 Gen 3"
                                         },
-                                        "variant_attributes": {
-                                            "Color": [
-                                                "Gold",
-                                                "Silver"
-                                            ]
+                                        "emi_enabled": true,
+                                        "pre_order": {
+                                            "available": false,
+                                            "price": null
                                         },
-                                        "highlights": "Snapdragon 8 Elite Processor | Advanced Cooling",
-                                        "product_video_url": "https://youtube.com/watch?v=123",
-                                        "emi_enabled": 1,
-                                        "pre_order": 0,
-                                        "pre_order_price": 0,
-                                        "warranty_description": "1 Year Official Warranty",
-                                        "average_rating": 4.5,
-                                        "rating_count": 128,
-                                        "colors": [
-                                            "Gold",
-                                            "Silver"
-                                        ],
-                                        "image": {
-                                            "id": 1,
-                                            "url": "https://fatafatsewa.com/uploads/OnePlus-15.webp",
-                                            "is_main": true
+                                        "thumb": {
+                                            "url": null,
+                                            "alt_text": null
                                         },
-                                        "images": [
-                                            {
-                                                "id": 1,
-                                                "url": "https://fatafatsewa.com/uploads/OnePlus-15.webp",
-                                                "is_main": true
-                                            }
-                                        ],
+                                        "images": [],
                                         "brand": {
                                             "id": 2,
-                                            "name": "OnePlus",
-                                            "slug": "oneplus"
-                                        },
-                                        "vendor": {
-                                            "id": 1,
-                                            "name": "Fatafat Sewa Official"
+                                            "name": "XIAOMI"
                                         },
                                         "categories": [
                                             {
+                                                "id": 1,
+                                                "title": "Mobile Phone",
+                                                "slug": "mobile-price-in-nepal"
+                                            }
+                                        ],
+                                        "related_categories": [
+                                            {
                                                 "id": 5,
-                                                "name": "Smartphones",
+                                                "title": "Smartphones",
                                                 "slug": "smartphones"
                                             }
                                         ],
                                         "variants": [
                                             {
-                                                "id": 915,
-                                                "product_id": 4785,
-                                                "sku": "OP15-GOLD",
-                                                "price": 159999,
-                                                "original_price": 169999,
-                                                "discounted_price": 159999,
-                                                "quantity": 5,
+                                                "variant_id": 915,
+                                                "price": 46999,
+                                                "quantity": 10,
                                                 "attributes": {
-                                                    "Color": "Gold"
+                                                    "Color": "Black"
                                                 },
-                                                "status": 1,
-                                                "image": "https://fatafatsewa.com/uploads/OnePlus-15-gold.webp"
+                                                "images": [
+                                                    {
+                                                        "url": "https://img.fatafatsewa.com/products/.../black.webp",
+                                                        "alt_text": "Black"
+                                                    }
+                                                ]
                                             }
                                         ],
-                                        "reviews": {
-                                            "total": 128,
-                                            "average": 4.5
-                                        },
-                                        "related_products": [
+                                        "coupons": [
                                             {
-                                                "id": 4786,
-                                                "name": "OnePlus 15 Pro",
-                                                "slug": "oneplus-15-pro",
-                                                "price": 189999,
-                                                "image": "https://fatafatsewa.com/uploads/OnePlus-15-pro.webp"
+                                                "code": "FESTIVE1000",
+                                                "discount_amount": 1000,
+                                                "description": "Festival Discount"
                                             }
                                         ],
-                                        "created_at": "2026-01-26T14:05:16.000000Z",
-                                        "updated_at": "2026-01-26T14:12:27.000000Z"
+                                        "free_gift": {
+                                            "name": "Tempered Glass & Cover",
+                                            "image_url": "https://img.fatafatsewa.com/gifts/cover.webp"
+                                        }
                                     }
                                 }
                             }
@@ -2809,6 +2815,446 @@
                                         "total_pages": 5,
                                         "total_items": 50
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/emi-banks": {
+            "get": {
+                "summary": "🔵 Quick Fix: Get EMI Banks List",
+                "description": "Returns a list of banks supporting EMI payments with their finance percentages for different tenures.\n\n### Developer Guide\n- 🔵 **Quick Fix**: Ready for implementation.\n- 🔴 **Future**: Planned features.",
+                "tags": [
+                    "EMI"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of EMI banks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "bank_code": {
+                                                        "type": "string"
+                                                    },
+                                                    "finance_percentage": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "month_6": {
+                                                                "type": "string"
+                                                            },
+                                                            "month_9": {
+                                                                "type": "string"
+                                                            },
+                                                            "month_12": {
+                                                                "type": "string"
+                                                            },
+                                                            "month_18": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    "thumb": {
+                                                        "url": null,
+                                                        "alt_text": null
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": [
+                                        {
+                                            "id": 2,
+                                            "name": "Laxmi Sunrise Bank Limited",
+                                            "bank_code": "Sunrise",
+                                            "finance_percentage": {
+                                                "month_6": "8",
+                                                "month_9": "8",
+                                                "month_12": "8",
+                                                "month_18": "8"
+                                            },
+                                            "interest_rate": "8",
+                                            "thumb": {
+                                                "url": null,
+                                                "alt_text": null
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/group-data/banners": {
+            "get": {
+                "summary": "Batch Retrieve Banners",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">BATCH BANNERS (FOR DEVELOPER)</span>\n- Fetch multiple banner groups in one request.\n- **Param**: `sluglist` (comma-separated).\n- **Response**: Object keyed by banner slug.",
+                "tags": [
+                    "Group Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "sluglist",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Comma-separated banner slugs"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Banners data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "main-home": [
+                                            {
+                                                "id": 1,
+                                                "image": "..."
+                                            }
+                                        ],
+                                        "sidebar": [
+                                            {
+                                                "id": 2,
+                                                "image": "..."
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/group-data/categories": {
+            "get": {
+                "summary": "Batch Retrieve Categories with Products",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">BATCH CATEGORIES (FOR DEVELOPER)</span>\n- Fetch multiple categories and their products.\n- **Reference**: Matches `GET /api/v1/categories/{slug}/products` structure.\n- **Param**: `sluglist` (comma-separated).\n- **Response**: Object keyed by category slug.",
+                "tags": [
+                    "Group Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "sluglist",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Comma-separated category slugs"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categories data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "laptop-price-in-nepal": {
+                                            "products": [
+                                                {
+                                                    "id": 4690,
+                                                    "name": "Acer Aspire..."
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/group-data/brands": {
+            "get": {
+                "summary": "Batch Retrieve Brands with Products",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">BATCH BRANDS (FOR DEVELOPER)</span>\n- Fetch multiple brands and their products.\n- **Reference**: Matches `GET /api/v1/brands/{slug}/products` structure.\n- **Param**: `sluglist` (comma-separated).\n- **Response**: Object keyed by brand slug.",
+                "tags": [
+                    "Group Data"
+                ],
+                "parameters": [
+                    {
+                        "name": "sluglist",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Comma-separated brand slugs"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brands data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "dell": {
+                                            "products": [
+                                                {
+                                                    "id": 5001,
+                                                    "name": "Dell XPS..."
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/seo": {
+            "get": {
+                "summary": "Fetch SEO Metadata & Scripts",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">GLOBAL SEO ENDPOINT (FOR DEVELOPER)</span>\n- Fetch complete SEO data for any page on the site.\n- Supports standard `metadata` (title, description, OpenGraph), `json_ld` (structured data arrays), and `scripts` (raw script tags for pixels or tracking).\n- Use the `url_path` parameter to fetch the relevant data for that specific path.",
+                "tags": [
+                    "SEO"
+                ],
+                "parameters": [
+                    {
+                        "name": "url_path",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The relative path of the page (e.g., '/', '/product-details/redmi-note-15', '/category/mobiles')."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SEO Data payload containing metadata, json-ld arrays, and script tags.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "metadata": {
+                                            "title": "Redmi Note 15 5G Price in Nepal (2026)",
+                                            "description": "Buy Redmi Note 15 5G at the best price in Nepal.",
+                                            "canonical_url": "https://fatafatsewa.com/product-details/redmi-note-15",
+                                            "open_graph": {
+                                                "title": "Redmi Note 15 5G Price in Nepal",
+                                                "description": "Buy Redmi Note 15 5G at the best price.",
+                                                "image": "https://img.fatafatsewa.com/products/redmi.webp"
+                                            }
+                                        },
+                                        "json_ld": [
+                                            {
+                                                "@context": "https://schema.org/",
+                                                "@type": "Product",
+                                                "name": "Redmi Note 15 5G",
+                                                "image": "https://img.fatafatsewa.com/products/redmi.webp",
+                                                "description": "Redmi Note 15 5G 108MP Camera Smartphone.",
+                                                "offers": {
+                                                    "@type": "Offer",
+                                                    "priceCurrency": "NPR",
+                                                    "price": "46999"
+                                                }
+                                            }
+                                        ],
+                                        "scripts": [
+                                            "<script>fbq('track', 'PageView');</script>",
+                                            "<script async src=\"https://www.googletagmanager.com/gtag/js\"></script>"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sitemap/products": {
+            "get": {
+                "summary": "Get Products for Sitemap",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">SITEMAP: PRODUCTS</span>\n- Extremely lightweight endpoint to fetch product slugs for the `sitemap.xml`.\n- Returns only the `slug` and `updated_at` (or `created_at`) fields. No images, descriptions, or relational data.",
+                "tags": [
+                    "Sitemap"
+                ],
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1000
+                        },
+                        "description": "Number of items per page"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "description": "Page number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of product sitemap data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": [
+                                        {
+                                            "slug": "redmi-note-15-5g-12256gb",
+                                            "updated_at": "2026-04-10T10:00:00Z"
+                                        },
+                                        {
+                                            "slug": "acer-aspire-lite-14",
+                                            "updated_at": "2026-04-09T14:30:00Z"
+                                        }
+                                    ],
+                                    "meta": {
+                                        "current_page": 1,
+                                        "per_page": 1000,
+                                        "total": 5000,
+                                        "last_page": 5
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sitemap/categories": {
+            "get": {
+                "summary": "Get Categories for Sitemap",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">SITEMAP: CATEGORIES</span>\n- Lightweight endpoint to fetch product category slugs for the `sitemap.xml`.\n- Returns all category slugs without nested product data.",
+                "tags": [
+                    "Sitemap"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of category sitemap data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": [
+                                        {
+                                            "slug": "laptop-price-in-nepal",
+                                            "updated_at": "2026-01-15T08:00:00Z"
+                                        },
+                                        {
+                                            "slug": "mobile-price-in-nepal",
+                                            "updated_at": "2026-01-15T08:00:00Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sitemap/blogs": {
+            "get": {
+                "summary": "Get Blogs for Sitemap",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">SITEMAP: BLOGS</span>\n- Lightweight endpoint to fetch blog slugs for the `sitemap.xml`.",
+                "tags": [
+                    "Sitemap"
+                ],
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 500
+                        },
+                        "description": "Number of items per page"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "description": "Page number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of blog sitemap data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": [
+                                        {
+                                            "slug": "best-laptops-2026",
+                                            "updated_at": "2026-04-12T09:15:00Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sitemap/blog-categories": {
+            "get": {
+                "summary": "Get Blog Categories for Sitemap",
+                "description": "🔵 <span style=\"color:blue; font-size:1.5em; font-weight:bold;\">SITEMAP: BLOG CATEGORIES</span>\n- Lightweight endpoint to fetch blog category slugs for the `sitemap.xml`.",
+                "tags": [
+                    "Sitemap"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of blog category sitemap data",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "data": [
+                                        {
+                                            "slug": "tech-news",
+                                            "updated_at": "2026-02-20T11:00:00Z"
+                                        }
+                                    ]
                                 }
                             }
                         }
